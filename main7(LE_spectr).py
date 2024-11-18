@@ -2,12 +2,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpmath import mp
 
-mp.dps = 10
+mp.dps = 30
 # Спектр ляпуновских показателей
 
-A = mp.mpf('0.15')
-B = mp.mpf('0.1')
-C = mp.mpf('-1.8')
+A = mp.mpf('1.43')
+B = mp.mpf('0.5')
+C = mp.mpf('-1.758')
 
 m = 1000
 t = 10
@@ -34,8 +34,8 @@ def d_Henon(dx, x, A, B, C):
     return dx0
 
 
-for q in range(1000):
-    x = mp.matrix([[mp.mpf('0.1'), mp.mpf('0.2'), mp.mpf('0.3')]])
+for q in range(100):
+    x = mp.matrix([[mp.mpf('0.1'), mp.mpf('0.1'), mp.mpf('0.1')]])
 
     # начальные вектора возмущения, которые ортоганальны и нормированы на еденицу
     dx = mp.matrix([[mp.mpf('1'), 0, 0]])
@@ -81,53 +81,54 @@ for q in range(1000):
     L_2.append(sum_2 / (g_2 * t))
     # L_3.append(sum_3 / (g_3 * t))
     c.append(C)
-    C += 0.0009
+    C -= 0.00003
 
-fp1 = np.linspace(-1.005, -1.005, 100) # NS
-fp2 = np.linspace(-1.167, -1.167, 100) # C-4
-fp3 = np.linspace(-1.42, -1.42, 100) # C-8
-fp4 = np.linspace(-1.5014, -1.5014, 100) # C-16
-
-fp5 = np.linspace(-1.5228, -1.5228, 100) # C-32
-fp6 = np.linspace(-1.527, -1.527, 100) # C-64
-fp7 = np.linspace(-1.528, -1.528, 100) # CH
-fp8 = np.linspace(-1.619, -1.619, 100) # HC
+# fp1 = np.linspace(-1.464, -1.464, 100) # NS
+# fp2 = np.linspace(-1.702, -1.702, 100) # C-4
+# fp3 = np.linspace(-1.7485, -1.7485, 100) # C-8
+fp4 = np.linspace(-1.75925, -1.75925, 100) # C-16
+#
+# fp5 = np.linspace(-1.5228, -1.5228, 100) # C-32
+# fp6 = np.linspace(-1.527, -1.527, 100) # C-64
+fp7 = np.linspace(-1.7596, -1.7596, 100) # CH
+# fp8 = np.linspace(-1.619, -1.619, 100) # HC
 
 fig, ax = plt.subplots()
 
-a1 = np.linspace(-1.2, 0.2, 100)
+a1 = np.linspace(-0.04, 0.02, 100)
 
 l1 = ax.plot(c, L_1, label='L-1')
 l2 = ax.plot(c, L_2, label='L-2')
 # l3 = ax.plot(c, L_3, label='L-3')
 
-line1, = ax.plot(fp1, a1, label='NS')
-line2, = ax.plot(fp2, a1, label='C-4')
-line3, = ax.plot(fp3, a1, label='C-8')
-line4, = ax.plot(fp4, a1, label='C-16')
-
-line5, = ax.plot(fp5, a1, label='C-32')
-line6, = ax.plot(fp6, a1, label='C-64')
+# line1, = ax.plot(fp1, a1, label='NS')
+# line2, = ax.plot(fp2, a1, label='ICD-1')
+# line3, = ax.plot(fp3, a1, label='ICD-2')
+line4, = ax.plot(fp4, a1, label='ICD-3')
+#
+# line5, = ax.plot(fp5, a1, label='C-32')
+# line6, = ax.plot(fp6, a1, label='C-64')
 line7, = ax.plot(fp7, a1, label='CH')
-line8, = ax.plot(fp8, a1, label='HC')
+# line8, = ax.plot(fp8, a1, label='HC')
 
-ax.annotate('NS', xy=(-1.005, 0), xytext=(-0.95, 0),
-            arrowprops=dict(facecolor='black', shrink=0.05))
-ax.annotate('C-4', xy=(-1.167, 0), xytext=(-1.12, 0.1),
-            arrowprops=dict(facecolor='black', shrink=0.05))
-ax.annotate('C-8', xy=(-1.42, 0), xytext=(-1.38, 0),
-            arrowprops=dict(facecolor='black', shrink=0.05))
-ax.annotate('C-16', xy=(-1.5014, 0), xytext=(-1.465, 0),
-            arrowprops=dict(facecolor='black', shrink=0.05))
-
-ax.annotate('C-32', xy=(-1.5228, 0), xytext=(-1.465, 0.066),
-            arrowprops=dict(facecolor='black', shrink=0.05))
-ax.annotate('CH', xy=(-1.528, 0), xytext=(-1.465, 0.133),
-            arrowprops=dict(facecolor='black', shrink=0.05))
-ax.annotate('HC', xy=(-1.619, 0), xytext=(-1.65, -0.066),
-            arrowprops=dict(facecolor='black', shrink=0.05))
-# ax.annotate('ICD-2', xy=(-1.759255, 0), xytext=(-1.725, 0.066),
+# ax.annotate('NS', xy=(-1.47, 0), xytext=(-1.42, 0.1),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
+# ax.annotate('ICD-1', xy=(-1.704, 0), xytext=(-1.65, 0.05),
+#             arrowprops=dict(facecolor='black', shrink=0.05))
+# ax.annotate('ICD-2', xy=(-1.7485, 0), xytext=(-1.72, 0.05),
+#             arrowprops=dict(facecolor='black', shrink=0.05))
+
+ax.annotate('ICD-3', xy=(-1.75925, 0), xytext=(-1.7588, 0.005),
+            arrowprops=dict(facecolor='black', shrink=0.05))
+#
+# ax.annotate('C-32', xy=(-1.5228, 0), xytext=(-1.465, 0.066),
+#             arrowprops=dict(facecolor='black', shrink=0.05))
+ax.annotate('CH', xy=(-1.7596, 0), xytext=(-1.7592, 0.01),
+            arrowprops=dict(facecolor='black', shrink=0.05))
+# ax.annotate('HC', xy=(-1.619, 0), xytext=(-1.65, -0.066),
+#             arrowprops=dict(facecolor='black', shrink=0.05))
+# # ax.annotate('ICD-2', xy=(-1.759255, 0), xytext=(-1.725, 0.066),
+# #             arrowprops=dict(facecolor='black', shrink=0.05))
 
 ax.grid()
 ax.legend()
@@ -135,4 +136,5 @@ ax.legend()
 ax.set_title(f"A = {A}, B = {B}")
 ax.set_xlabel("Параметр C")
 ax.set_ylabel("Показатель Ляпунова L")
+
 plt.show()

@@ -119,12 +119,89 @@ class Henon():
         ax1.set_ylabel('Y')
         plt.show()
 
+    def dif_iter(self, dx):
+        dx0 = mp.matrix([[0, 0, 0]])
+        dx0[0] = dx[1]
+        dx0[1] = dx[2]
+        dx0[2] = self.b * dx[0] + (self.c - 2 * self.x[1]) * dx[1] + self.a * dx[2]
+        dx[0] = dx0[0]
+        dx[1] = dx0[1]
+        dx[2] = dx0[2]
+
+        return dx
+
+    def spectr_lyp_exp(self, iter, m, t, step_prm):
+
+        l_1 = []
+        l_2 = []
+        l_3 = []
+        c = []
+
+        for q in range(1000):
+            # начальные вектора возмущения, которые ортогональны и нормированы на единицу
+            dx = mp.matrix([[mp.mpf('1'), 0, 0]])
+            dy = mp.matrix([[0, mp.mpf('1'), 0]])
+            dz = mp.matrix([[0, 0, mp.mpf('1')]])
+
+            sum_1 = 0
+            sum_2 = 0
+            sum_3 = 0
+
+            g_1 = 0
+            g_2 = 0
+            g_3 = 0
+
+            for i in range(iter):
+                self.iteration()
+
+            for i in range(m):
+                for j in range(t):
+                    self.iteration()
+                    dx = self.dif_iter(dx)
+                    dy = self.dif_iter(dy)
+                    dz = self.dif_iter(dz)
+
+                if mp.norm(dx, 2) != 0:
+                    sum_1 += mp.log(mp.norm(dx, 2))
+                    g_1 += 1
+                    dx = dx / mp.norm(dx, 2)
+
+                dy1 = dy - (dy * dx.T)[0] * dx
+                if mp.norm(dy1, 2) != 0:
+                    sum_2 += mp.log(mp.norm(dy1, 2))
+                    g_2 += 1
+                    dy = dy1 / mp.norm(dy1, 2)
+
+                dz1 = dz - (dz * dx.T)[0] * dx - (dz * dy.T)[0] * dy
+                if mp.norm(dz1, 2) != 0:
+                    sum_3 += mp.log(mp.norm(dz1, 2))
+                    g_3 += 1
+                    dz = dz1 / mp.norm(dz1, 2)
+
+            l_1.append(sum_1 / (g_1 * t))
+            l_2.append(sum_2 / (g_2 * t))
+            l_3.append(sum_3 / (g_3 * t))
+            c.append(self.c)
+            self.c += step_prm
+
+        fig, ax = plt.subplots()
+
+        l1 = ax.plot(c, l_1, label='L-1')
+        l2 = ax.plot(c, l_2, label='L-2')
+        l3 = ax.plot(c, l_3, label='L-3')
+
+        ax.grid()
+        ax.legend()
+        ax.set_title(f"A = {self.a}, B = {self.b}")
+        ax.set_xlabel("Параметр C")
+        ax.set_ylabel("Показатель Ляпунова L")
+        plt.show()
 
 ds = Henon(
     mp.matrix([[mp.mpf('0.1'), mp.mpf('0.2'), mp.mpf('0.3')]]),
     mp.mpf('1.43'),
     mp.mpf('0.5'),
-    mp.mpf('-1.7594137')
+    mp.mpf('-1.8')
 )
 
 # print(ds.x)
@@ -133,7 +210,8 @@ ds = Henon(
 #
 # print(ds.x)
 
-ds.bif_tree(1000, 1000, 1000, 0.0004)
+# ds.bif_tree(1000, 1000, 1000, 0.0004)
 # ds.triangle()
 # ds.fase_port(300_000, 10_000)
 # ds.close_fase_port(300000, 100000, -0.46, -0.18, -0.63, -0.23)
+ds.spectr_lyp_exp(1000, 1000, 10, 0.0004)
