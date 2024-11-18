@@ -5,8 +5,14 @@ import matplotlib.pyplot as plt
 from mpmath import mp
 mp.dps = 30
 
-A = mp.mpf('1.44')
-B = mp.mpf('0.5')
+# A = -0.227
+# B = -0.5
+# C = -1.375
+
+A = mp.mpf('-0.227')
+B = mp.mpf('-0.5')
+C = [mp.mpf('-1.375')]
+
 # C = [mp.mpf('-1.759255')]
 # C = [mp.mpf('-1.75944'), mp.mpf('-1.7596'), mp.mpf('-1.7597'), mp.mpf('-1.7598'), mp.mpf('-1.7599'), mp.mpf('-1.76'), mp.mpf('-1.765'), mp.mpf('-1.77'), mp.mpf('-1.78')]
 # , mp.mpf('-1.75941381'), mp.mpf('-1.75941382'), mp.mpf('-1.75941383'), mp.mpf('-1.75941384'),
@@ -37,11 +43,12 @@ B = mp.mpf('0.5')
 #     mp.mpf('-1.761'),
 # ]
 
-C = [
-    mp.mpf('-1.7612'),
-    mp.mpf('-1.7615'),
-    mp.mpf('-1.76097'),
-]
+# C = [
+#     mp.mpf('-1.7612'),
+#     mp.mpf('-1.7615'),
+#     mp.mpf('-1.76097'),
+# ]
+
 m = 1000
 t = 10
 
@@ -103,20 +110,20 @@ for q in range(len(C)):
             g_2 += 1
             dy = dy1 / mp.norm(dy1, 2)
 
-        # dz1 = dz - (dz*dx.T)[0] * dx - (dz*dy.T)[0] * dy
-        # if mp.norm(dz1, 2) != 0:
-        #     sum_3 += mp.log(mp.norm(dz1, 2))
-        #     g_3 += 1
-        #     dz = dz1 / mp.norm(dz1, 2)
+        dz1 = dz - (dz*dx.T)[0] * dx - (dz*dy.T)[0] * dy
+        if mp.norm(dz1, 2) != 0:
+            sum_3 += mp.log(mp.norm(dz1, 2))
+            g_3 += 1
+            dz = dz1 / mp.norm(dz1, 2)
 
     L_1.append(sum_1 / (g_1 * t))
     L_2.append(sum_2 / (g_2 * t))
-    # L_3.append(sum_3 / (g_3 * t))
+    L_3.append(sum_3 / (g_3 * t))
 
 print(C)
 print(L_1)
 print(L_2)
-# print(L_3)
+print(L_3)
 
 # fig, ax = plt.subplots()
 # l1 = ax.plot(c, L_1, label='L-1')
