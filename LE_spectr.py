@@ -34,7 +34,7 @@ def d_Henon(dx, x, A, B, C):
     return dx0
 
 
-for q in range(100):
+for q in range(10):
     x = mp.matrix([[mp.mpf('0.1'), mp.mpf('0.1'), mp.mpf('0.1')]])
 
     # начальные вектора возмущения, которые ортоганальны и нормированы на еденицу
@@ -81,7 +81,7 @@ for q in range(100):
     L_2.append(sum_2 / (g_2 * t))
     # L_3.append(sum_3 / (g_3 * t))
     c.append(C)
-    C -= 0.00003
+    C -= 0.0003
 
 # fp1 = np.linspace(-1.464, -1.464, 100) # NS
 # fp2 = np.linspace(-1.702, -1.702, 100) # C-4

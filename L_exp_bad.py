@@ -43,6 +43,7 @@ for i in range(300):
     norm1 = np.linalg.norm(d0)
     norm2 = np.linalg.norm(d1)
     norm3 = np.linalg.norm(d2)
+
     # print(norm)
     L1 = L1 + np.log(norm1/eps)
     L2 = L2 + np.log(norm2/eps)

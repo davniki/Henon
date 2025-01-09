@@ -19,10 +19,13 @@ B = mp.mpf('0.5')
 C = mp.mpf('-1.76')
 
 x = mp.matrix([[mp.mpf('0.1'), mp.mpf('0.2'), mp.mpf('0.3')]])
+
 fx = []
 fy = []
 fz = []
+
 r = []
+
 for j in range(1000):
     for i in range(1000):
         x = Henon(x, A, B, C)
