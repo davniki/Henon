@@ -23,12 +23,12 @@ def d_Henon(dx, x, A, B, C):
     return dx0
 
 
-A = mp.mpf('1.991')
+A = mp.mpf('1.99058')
 B = mp.mpf('0.5')
-C = mp.mpf('-1.89')
+C = mp.mpf('-1.8908')
 
-m = 1000
-t = 10
+m = 2000
+t = 20
 
 L_1 = []
 L_2 = []
@@ -54,7 +54,7 @@ for q in range(100):
     g_2 = 0
     g_3 = 0
 
-    for l in range(100):
+    for l in range(1000):
         x = Henon(x, A, B, C)
 
     for j in range(m):
@@ -85,12 +85,12 @@ for q in range(100):
     L_2.append(sum_2 / (g_2 * t))
     # L_3.append(sum_3 / (g_3 * t))
     c.append(A)
-    A -= 0.000001
+    A -= 2*10**(-7)
 
 # fp1 = np.linspace(-1.464, -1.464, 100) # NS
-# fp2 = np.linspace(-1.702, -1.702, 100) # C-4
-# fp3 = np.linspace(-1.7485, -1.7485, 100) # C-8
-# fp4 = np.linspace(-1.75925, -1.75925, 100) # C-16
+# fp2 = np.linspace(2.1175, 2.1175, 100) # C-4
+# fp3 = np.linspace(2.035, 2.035, 100) # C-8
+# fp4 = np.linspace(2.0031, 2.0031, 100) # C-16
 
 # fp5 = np.linspace(-1.5228, -1.5228, 100) # C-32
 # fp6 = np.linspace(-1.527, -1.527, 100) # C-64
@@ -99,7 +99,7 @@ for q in range(100):
 
 fig, ax = plt.subplots()
 
-a1 = np.linspace(-0.04, 0.02, 100)
+# a1 = np.linspace(-0.2, 0.05, 100)
 
 l1 = ax.plot(c, L_1, label='L-1')
 l2 = ax.plot(c, L_2, label='L-2')
@@ -117,22 +117,20 @@ l2 = ax.plot(c, L_2, label='L-2')
 
 # ax.annotate('NS', xy=(-1.47, 0), xytext=(-1.42, 0.1),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-# ax.annotate('ICD-1', xy=(-1.704, 0), xytext=(-1.65, 0.05),
+# ax.annotate('ICD-1', xy=(2.1175, 0), xytext=(2.15, 0.025),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-# ax.annotate('ICD-2', xy=(-1.7485, 0), xytext=(-1.72, 0.05),
+# ax.annotate('ICD-2', xy=(2.035, 0), xytext=(2.075, 0.025),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-
-# ax.annotate('ICD-3', xy=(-1.75925, 0), xytext=(-1.7588, 0.005),
+# ax.annotate('ICD-3', xy=(2.0031, 0), xytext=(2.05, 0.025),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-#
 # ax.annotate('C-32', xy=(-1.5228, 0), xytext=(-1.465, 0.066),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
 # ax.annotate('CH', xy=(-1.7596, 0), xytext=(-1.7592, 0.01),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
 # ax.annotate('HC', xy=(-1.619, 0), xytext=(-1.65, -0.066),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-# # ax.annotate('ICD-2', xy=(-1.759255, 0), xytext=(-1.725, 0.066),
-# #             arrowprops=dict(facecolor='black', shrink=0.05))
+# ax.annotate('ICD-2', xy=(-1.759255, 0), xytext=(-1.725, 0.066),
+#             arrowprops=dict(facecolor='black', shrink=0.05))
 
 ax.grid()
 ax.legend()

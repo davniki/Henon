@@ -3,7 +3,7 @@ import numpy as np
 from mpmath import mp
 from sys import stdout
 
-mp.dps = 22
+mp.dps = 30
 # Бифуркационное дерево динамической системы
 
 
@@ -15,80 +15,93 @@ def Henon(x, A, B, C):
     return dx
 
 
-A = mp.mpf('2.2')
+A = mp.mpf('2.05')
 B = mp.mpf('0.5')
 C = mp.mpf('-1.89')
-
-x = mp.matrix([[mp.mpf('0.1'), mp.mpf('0.2'), mp.mpf('0.3')]])
 
 fx = []
 fy = []
 fz = []
 
+fx1 = []
+fy1 = []
+fz1 = []
+
 r = []
 
-for j in range(100):
+for j in range(500):
     stdout.write("\r%d" % j)
     stdout.flush()
+
+    x = mp.matrix([[mp.mpf('0.1'), mp.mpf('0.1'), mp.mpf('0.1')]])
 
     for i in range(100):
         x = Henon(x, A, B, C)
 
-    for i in range(1000):
+    for i in range(10_000):
         x = Henon(x, A, B, C)
-        fx.append(x[0])
-        fy.append(x[1])
-        fz.append(x[2])
-        r.append(A)
 
-    A -= 3*10**(-3)
+        # fx.append(x[0])
+        # fy.append(x[1])
+        # fz.append(x[2])
 
-# fp1 = np.linspace(-1.467, -1.467, 100) # NS
-# fp2 = np.linspace(-1.703, -1.703, 100) # C-4
-# fp3 = np.linspace(-1.749, -1.749, 100) # C-8
-# fp4 = np.linspace(-1.75925, -1.75925, 100) # C-16
+        if -5*10**(-4) <= x[1] <= 5*10**(-4) and x[0] >= 0:
+            fx1.append(x[0])
+            fy1.append(x[1])
+            fz1.append(x[2])
+            r.append(A)
 
+    A -= 2*10**(-4)
+
+# fp1 = np.linspace(-1.005, -1.005, 100) # NS
+# fp2 = np.linspace(-1.167, -1.167, 100) # C-4
+# fp3 = np.linspace(-1.42, -1.42, 100) # C-8
+# fp4 = np.linspace(-1.5014, -1.5014, 100) # C-16
+#
 # fp5 = np.linspace(-1.5228, -1.5228, 100) # C-32
 # fp6 = np.linspace(-1.527, -1.527, 100) # C-64
-# fp7 = np.linspace(-1.7596, -1.7596, 100) # CH
+# fp7 = np.linspace(-1.528, -1.528, 100) # CH
 # fp8 = np.linspace(-1.619, -1.619, 100) # HC
 
-# a1 = np.linspace(-1, 0.4, 100)
+print(' ')
+# print(fx)
+# print(fy)
+# print(fz)
+
+# print(fx1)
+# print(fy1)
+# print(fz1)
+
+fig, ax = plt.subplots()
+ax.plot(r, fz1, 'r.', ms=0.5)
+
+# a1 = np.linspace(-2.5, 1, 100)
 
 # line1, = ax.plot(fp1, a1, label='NS')
-# line2, = ax.plot(fp2, a1, label='ICD-1')
-# line3, = ax.plot(fp3, a1, label='ICD-2')
-# line4, = ax.plot(fp4, a1, label='ICD-3')
+# line2, = ax.plot(fp2, a1, label='C-4')
+# line3, = ax.plot(fp3, a1, label='C-8')
+# line4, = ax.plot(fp4, a1, label='C-16')
 #
 # line5, = ax.plot(fp5, a1, label='C-32')
 # line6, = ax.plot(fp6, a1, label='C-64')
 # line7, = ax.plot(fp7, a1, label='CH')
 # line8, = ax.plot(fp8, a1, label='HC')
 
-# ax.annotate('NS', xy=(-1.467, 0), xytext=(-1.42, 0.1),
+# ax.annotate('NS', xy=(-1.005, 0), xytext=(-0.95, -0.25),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-# ax.annotate('ICD-1', xy=(-1.703, -0.5), xytext=(-1.65, -0.5),
+# ax.annotate('C-4', xy=(-1.167, -0.55), xytext=(-1.12, -0.55),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-# ax.annotate('ICD-2', xy=(-1.749, -0.68), xytext=(-1.65, -0.62),
+# ax.annotate('C-8', xy=(-1.42, -0.97), xytext=(-1.38, -0.97),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-# ax.annotate('ICD-3', xy=(-1.75925, 0), xytext=(-1.75875, 0),
+# ax.annotate('C-16', xy=(-1.5014, -1.252), xytext=(-1.465, -1.252),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-
-# ax.annotate('C-32', xy=(-1.5228, 0), xytext=(-1.465, 0.066),
+#
+# ax.annotate('C-32', xy=(-1.5228, -1.318), xytext=(-1.465, -1.318),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-
-# ax.annotate('CH', xy=(-1.7596, -0.2), xytext=(-1.7592, -0.2),
+# ax.annotate('CH', xy=(-1.528, -1.328), xytext=(-1.465, -1.5),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-
-# ax.annotate('HC', xy=(-1.619, 0), xytext=(-1.65, -0.066),
+# ax.annotate('HC', xy=(-1.619, -1.656), xytext=(-1.57, -1.7),
 #             arrowprops=dict(facecolor='black', shrink=0.05))
-# ax.annotate('ICD-2', xy=(-1.759255, 0), xytext=(-1.725, 0.066),
-#             arrowprops=dict(facecolor='black', shrink=0.05))
-
-
-fig, ax = plt.subplots()
-
-ax.plot(r, fx)
 
 ax.grid()
 # ax.legend()
@@ -96,4 +109,5 @@ ax.grid()
 ax.set_title(f'Бифуркационное дерево системы с параметрами C = {C}, B = {B}')
 ax.set_xlabel('Параметр A')
 ax.set_ylabel('X')
+
 plt.show()

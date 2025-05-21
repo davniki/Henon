@@ -27,8 +27,8 @@ A = mp.mpf('1.990915')
 B = mp.mpf('0.5')
 C = mp.mpf('-1.89')
 
-m = 1000
-t = 10
+m = 2500
+t = 25
 
 L_1 = 0
 L_2 = 0
@@ -55,6 +55,8 @@ for l in range(100):
     x = Henon(x, A, B, C)
 
 for j in range(m):
+    stdout.write("\r%d" % j)
+    stdout.flush()
     for i in range(t):
         x = Henon(x, A, B, C)
         dx = d_Henon(dx, x, A, B, C)
@@ -82,6 +84,7 @@ L_1 = sum_1 / (g_1 * t)
 L_2 = sum_2 / (g_2 * t)
 L_3 = sum_3 / (g_3 * t)
 
+print(' ')
 print(L_1)
 print(L_2)
 print(L_3)

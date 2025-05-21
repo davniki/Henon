@@ -14,7 +14,7 @@ mp.dps = 25
 
 a = mp.mpf('1.43')
 b = mp.mpf('0.5')
-c = mp.mpf('-1.75')
+c = mp.mpf('-1.45')
 
 def Henon(x, A, B, C):
     dx = mp.matrix([[0, 0, 0]])
@@ -100,7 +100,7 @@ for i in range(2_000_000):
 fig, ax = plt.subplots()
 fig, ax1 = plt.subplots()
 
-ax.plot(fx, fy, 'g.', ms=0.025)
+ax.plot(fx, fy, 'g.')
 # ax.plot(fx2, fy2, 'r.', ms=0.1)
 
 ax1.plot(fx1, fy1, 'g.', ms=0.3)
