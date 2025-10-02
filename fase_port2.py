@@ -40,7 +40,7 @@ fz1 = []
 
 k = 0
 
-for i in range(100_000):
+for i in range(50_000):
     x = Henon(x, a, b, c)
 
 for i in range(2_000_000):
