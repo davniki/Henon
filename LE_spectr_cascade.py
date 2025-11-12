@@ -36,8 +36,8 @@ L_3 = []
 c = []
 
 for q in range(100):
-    stdout.write("\r%d" % q)
-    stdout.flush()
+    # stdout.write("\r%d" % q)
+    # stdout.flush()
 
     x = mp.matrix([[mp.mpf('0.1'), mp.mpf('0.1'), mp.mpf('0.1')]])
 

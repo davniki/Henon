@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from sys import stdout
 
 from mpmath import mp
 mp.dps = 25
@@ -12,9 +13,9 @@ mp.dps = 25
 # b = mp.mpf('0.5')
 # c = mp.mpf('-1.7574339')
 
-a = mp.mpf('1.43')
+a = mp.mpf('2.17')
 b = mp.mpf('0.5')
-c = mp.mpf('-1.45')
+c = mp.mpf('-1.9')
 
 def Henon(x, A, B, C):
     dx = mp.matrix([[0, 0, 0]])
@@ -43,7 +44,10 @@ k = 0
 for i in range(50_000):
     x = Henon(x, a, b, c)
 
-for i in range(2_000_000):
+for i in range(1_000_000):
+    stdout.write("\r%d" % i)
+    stdout.flush()
+
     x = Henon(x, a, b, c)
 
     fx.append(x[0])
@@ -95,15 +99,15 @@ for i in range(2_000_000):
 #         k += 1
 
 # print(m)
-# print(k)
+print(k)
 
 fig, ax = plt.subplots()
 fig, ax1 = plt.subplots()
 
-ax.plot(fx, fy, 'g.')
+ax.plot(fx, fy, 'g.', ms=0.3)
 # ax.plot(fx2, fy2, 'r.', ms=0.1)
 
-ax1.plot(fx1, fy1, 'g.', ms=0.3)
+ax1.plot(fx1, fy1, 'g.', ms=0.2)
 
 ax.set_title(f'A = {a}, B = {b}, C = {c}')
 ax.grid()

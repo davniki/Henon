@@ -23,9 +23,9 @@ def d_Henon(dx, x, A, B, C):
     return dx0
 
 
-A = mp.mpf('1.990915')
+A = mp.mpf('1.43')
 B = mp.mpf('0.5')
-C = mp.mpf('-1.89')
+C = mp.mpf('-1.75941488')
 
 m = 2500
 t = 25
