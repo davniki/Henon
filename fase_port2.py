@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from sys import stdout
+import matplotlib.animation as animation
 
 from mpmath import mp
 mp.dps = 25
@@ -41,10 +42,10 @@ fz1 = []
 
 k = 0
 
-for i in range(50_000):
+for i in range(1000):
     x = Henon(x, a, b, c)
 
-for i in range(1_000_000):
+for i in range(10_000):
     stdout.write("\r%d" % i)
     stdout.flush()
 
@@ -104,10 +105,10 @@ print(k)
 fig, ax = plt.subplots()
 fig, ax1 = plt.subplots()
 
-ax.plot(fx, fy, 'g.', ms=0.3)
+pl = ax.plot(fx, fy, 'g.', ms=0.3)[0]
 # ax.plot(fx2, fy2, 'r.', ms=0.1)
 
-ax1.plot(fx1, fy1, 'g.', ms=0.2)
+pl1 = ax1.plot(fx1, fy1, 'g.', ms=0.2)
 
 ax.set_title(f'A = {a}, B = {b}, C = {c}')
 ax.grid()
@@ -119,5 +120,22 @@ ax1.grid()
 ax1.set_xlabel('X')
 ax1.set_ylabel('Y')
 
+
+def update(frame):
+    # for each frame, update the data stored on each artist.
+    # x = fx[:frame]
+    # y = fy[:frame]
+    # update the scatter plot:
+    # data = np.stack([x, y]).T
+    # scat.set_offsets(data)
+    # update the line plot:
+    pl.set_xdata(fx[:frame])
+    pl.set_ydata(fy[:frame])
+    return pl
+
+
+ani = animation.FuncAnimation(fig=fig, func=update, frames=40, interval=30)
+
 plt.show()
 # plt.savefig(f'fase_port_a_{a}_c_{c}.eps', format='eps')
+animation.save()
