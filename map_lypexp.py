@@ -5,15 +5,15 @@ from sys import stdout
 
 delta = 0.01
 
-a_min = 1.67
-a_max = 2
+a_min = 1.9848
+a_max = 1.9974
 a_d = (a_max - a_min) / 100
 a_n = np.arange(a_min, a_max + delta, a_d)
 
 b = 0.5
 
-c_min = -1.91
-c_max = -1.83
+c_min = -1.893
+c_max = -1.888
 c_d = (c_max - c_min) / 100
 c_n = np.arange(c_min, c_max + delta, c_d)
 
@@ -66,5 +66,3 @@ plt.ylabel("Параметр C")
 
 plt.colorbar()
 plt.show()
-
-
