@@ -1,3 +1,4 @@
+from sys import stdout
 from mpmath import mp
 
 mp.dps = 22
@@ -6,9 +7,9 @@ mp.dps = 22
 #  Количество треугольничков на инвариантной кривой
 #####
 
-a = mp.mpf('1.44')
+a = mp.mpf('1.43')
 b = mp.mpf('0.5')
-c = mp.mpf('-1.7615')
+c = mp.mpf('-1.75941488')
 
 
 def henon(x, a, b, c):
@@ -26,7 +27,9 @@ fy = []
 fz = []
 
 # переходной процесс
-for i in range(100_000):
+for i in range(1_000_000):
+    stdout.write("\r%d" % i)
+    stdout.flush()
     x = henon(x, a, b, c)
 
 # нахождение точки на треугольнике, который находится на области:
@@ -36,7 +39,7 @@ for i in range(100_000):
 # она находится на области:
 # -0.3799 < x < -0.3798
 # -0.4082 < y < -0.4081
-while (x[0] < -0.41 or x[0] > -0.39) or (x[1] < -0.41 or x[1] > -0.39):
+while (x[0] < -0.40074 or x[0] > -0.4007) or (x[1] < -0.39716 or x[1] > -0.39711):
     x = henon(x, a, b, c)
 
 x_in_triangle = x
@@ -50,9 +53,10 @@ x = henon(x, a, b, c)
 #     number += 1
 
 # # запуск счетчика и его отключение при возвращении в область точки старта
-while (x[0] < -0.41 or x[0] > -0.39) or (x[1] < -0.41 or x[1] > -0.39):
+while (x[0] < -0.40074 or x[0] > -0.4007) or (x[1] < -0.39716 or x[1] > -0.39711):
     x = henon(x, a, b, c)
     number += 1
 
+print(f'a = {a}, b = {b}, c = {c}')
 print(x)
 print(number)

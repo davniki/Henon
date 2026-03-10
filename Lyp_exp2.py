@@ -69,8 +69,6 @@ def lyp_exp(x, A, B, C):
         x = Henon(x, A, B, C)
 
     for j in range(m):
-        # stdout.write("\r%d" % j)
-        # stdout.flush()
         for i in range(t):
             x = Henon(x, A, B, C)
             dx = d_Henon(dx, x, A, B, C)

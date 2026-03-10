@@ -196,7 +196,7 @@ import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import mpmath as mp
 import numpy as np
-from models import Henon
+from models import henon
 
 mp.dps = 25
 
@@ -214,11 +214,11 @@ fx, fy, fz = [], [], []
 
 # "Прогрев" системы
 for _ in range(1000):
-    x = Henon(x, a, b, c)
+    x = henon(x, a, b, c)
 
 # Основные итерации
 for _ in range(t):
-    x = Henon(x, a, b, c)
+    x = henon(x, a, b, c)
     fx.append(x[0])
     fy.append(x[1])
     fz.append(x[2])
