@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-# import numpy as np
 from sys import stdout
 from mpmath import mp
 from models import lyp_exp
