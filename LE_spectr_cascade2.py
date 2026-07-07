@@ -6,9 +6,11 @@ from Lyp_exp2 import lyp_exp
 
 # Спектр ляпуновских показателей
 
-
-a_min = 1.97561
-a_max = 1.97564
+# a_par = 1.9756225
+# a_min = a_par - 10**(-7)
+# a_max = a_par + 10**(-7)
+a_min = 2.1481094
+a_max = 1.97562256
 a_d = (a_max - a_min)/100
 
 A = np.arange(a_min, a_max, a_d)

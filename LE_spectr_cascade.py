@@ -23,14 +23,15 @@ mp.dps = 30
 #     return dx0
 
 
-A = mp.mpf('1.43')
+C = mp.mpf('1.43')
 B = mp.mpf('0.5')
 
-C_min = mp.mpf('-1.761')
-C_max = mp.mpf('-1.758')
-delta = abs(C_max - C_min)/100
+a_par = mp.mpf('2.14812')
+A_min = a_par - 10**(-4)
+A_max = a_par + 10**(-4)
+delta = abs(A_max - A_min)/100
 
-C = mp.arange(C_min, C_max, delta)
+A = mp.arange(A_min, A_max, delta)
 
 m = 2000
 t = 20
@@ -38,20 +39,20 @@ t = 20
 L_1 = []
 L_2 = []
 L_3 = []
-Parametr_C = []
+Parametr_A = []
 
-for q, c in enumerate(C):
+for q, a in enumerate(A):
     stdout.write("\r%d" % q)
     stdout.flush()
 
     x = mp.matrix([[mp.mpf('0.1'), mp.mpf('0.1'), mp.mpf('0.1')]])
 
-    l1, l2, l3 = lyp_exp(x, A, B, c)
+    l1, l2, l3 = lyp_exp(x, a, B, C)
 
     L_1.append(l1)
     L_2.append(l2)
     # L_3.append(l3)
-    Parametr_C.append(c)
+    Parametr_A.append(a)
 
 # fp1 = np.linspace(-1.464, -1.464, 100) # NS
 # fp2 = np.linspace(2.1175, 2.1175, 100)
@@ -67,8 +68,8 @@ fig, ax = plt.subplots()
 
 # a1 = np.linspace(-0.002, 0.002, 100)
 
-l1 = ax.plot(Parametr_C, L_1, label='L-1')
-l2 = ax.plot(Parametr_C, L_2, label='L-2')
+l1 = ax.plot(Parametr_A, L_1, label='L-1')
+l2 = ax.plot(Parametr_A, L_2, label='L-2')
 # l3 = ax.plot(Parametr_C, L_3, label='L-3')
 
 # line1, = ax.plot(fp1, a1, label='NS')
