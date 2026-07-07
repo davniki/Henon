@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from Lyp_exp2 import lyp_exp
+from Lyapunov.Lyp_exp2 import lyp_exp
 import sys
 
 
