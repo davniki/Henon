@@ -1,4 +1,5 @@
 import mpmath as mp
+import random
 
 
 def henon(x, a, b, c):
@@ -70,3 +71,16 @@ def lyp_exp(x, a, b, c):
     l_3 = sum_3 / (g_3 * t)
 
     return l_1, l_2, l_3
+
+def _gauss():
+    u1 = mp.rand()
+    u2 = mp.rand()
+    return mp.sqrt(-2 * mp.log(u1)) * mp.cos(2 * mp.pi * u2)
+
+def henon_noisy(x, a, b, c, sigma):
+    """henon + аддитивный шум в правой части (по всем трём уравнениям)."""
+    dx = mp.matrix([[0, 0, 0]])
+    dx[0] = x[1] + sigma * _gauss()
+    dx[1] = x[2] + sigma * _gauss()
+    dx[2] = b * x[0] + a * x[2] + c * x[1] - x[1] ** 2 + sigma * _gauss()
+    return dx
