@@ -3,3 +3,6 @@ __pycache__/
 __pycache__/
 *.pyc
 .venv/
+FasePort/Portraits
+FasePort/Portraits_awgn
+Pictures
