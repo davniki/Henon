@@ -17,7 +17,7 @@ b = mp.mpf('0.5')
 c = mp.mpf('-1.7594137')
 
 # === Параметры шума и воспроизводимости ===
-sigma = mp.mpf('1e-12')
+sigma = mp.mpf('1e-20')
 seed  = 42
 random.seed(seed)        # mp.rand() = random.random(), поэтому влияет и на _gauss()
 
@@ -38,20 +38,20 @@ max_iter = 50_000_000
 append_every = 1
 it = 0
 
-while k != 1000:
-    it += 1
-    if it > max_iter:
-        print(f"\n⚠️  Предохранитель: it={it}, k={k}, M={M}, n={n}. "
-              f"Уменьшите sigma, увеличьте mp.dps или расширьте окна.")
-        break
+while k != 10_000:
+    # it += 1
+    # if it > max_iter:
+    #     print(f"\n⚠️  Предохранитель: it={it}, k={k}, M={M}, n={n}. "
+    #           f"Уменьшите sigma, увеличьте mp.dps или расширьте окна.")
+    #     break
 
     stdout.write("\r%d" % k)
     stdout.flush()
 
     x = henon_noisy(x, a, b, c, sigma)
 
-    if n % append_every == 0:
-        fase_port_0.append((x[0], x[1], x[2]))
+    # if n % append_every == 0:
+    #   fase_port_0.append((x[0], x[1], x[2]))
     n += 1
 
     if (-0.38 < x[0] < -0.36) and (-0.414 < x[1] < -0.405):
@@ -111,7 +111,7 @@ params = {
 
 # Имена файлов — как в fase_port_to_csv.py + суффикс _awgn в params_str
 files = [
-    (fase_port_0, f"phase_full_{params_str}_n{len(fase_port_0)}.csv"),
+    # (fase_port_0, f"phase_full_{params_str}_n{len(fase_port_0)}.csv"),
     (fase_port_1, f"phase_zoom1_{params_str}_M{len(fase_port_1)}.csv"),
     (fase_port_2, f"phase_zoom2_{params_str}_k{len(fase_port_2)}.csv"),
 ]
